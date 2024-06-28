@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        ul {
+            display: flex;
+            justify-content: center;
+            margin: 100px auto;
+        }
+
+        ul li {
+            margin: 0 10px;
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            background: red;
+            transition: 0.3s;
+        }
+
+        /* 后一个 */
+        ul li:hover+li {
+            transform: scale(1.3);
+        }
+
+        /* 后第二个 */
+        ul li:hover+li+li {
+            transform: scale(1.1);
+        }
+
+        /* 当前 */
+        ul li:hover {
+            transform: scale(1.5);
+        }
+
+        /* 前面一个 */
+        ul li:has(+li:hover) {
+            transform: scale(1.3);
+        }
+
+        /* 前面的前面 */
+        ul li:has(+li+li:hover) {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+
+</html>

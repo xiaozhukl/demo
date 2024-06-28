@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            margin: 50px auto;
+            border-collapse: collapse;
+        }
+
+        table td {
+            border: 1px solid #ccc;
+            width: 100px;
+            height: 50px;
+            text-align: center;
+        }
+
+        .kclist {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            font-size: 12px;
+        }
+
+        span {
+            width: 100px;
+            height: 50px;
+            background: red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        span[kcm="yw"] {
+            background: red;
+        }
+
+        span[kcm="sx"] {
+            background: rgb(28, 149, 180);
+        }
+
+        span[kcm="yu"] {
+            background: #f60;
+        }
+
+        span[kcm="yy"] {
+            background: rgb(55, 55, 199);
+        }
+
+        span[kcm="ms"] {
+            background: rgb(47, 168, 101);
+        }
+
+        span[kcm="ty"] {
+            background: rgb(196, 50, 113);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        要点：
+        1、课程可以拖动到单元格里
+        2、一个单元格只能放一门课程，第二次拖动的会覆盖第一次的
+        3、课程可以从一个单元格拖动到另一个单元格，如果按下ctrl是复制，不按是移动
+        4、如果单元格里的课程拖出来到左侧的课程列表，那么格子里的课程会被删除
+     -->
+    <div class="kclist">
+        <span kcm="ms" draggable="true">美术</span>
+        <span kcm="sx" draggable="true">数学</span>
+        <span kcm="yu" draggable="true">英语</span>
+        <span kcm="yy" draggable="true">音乐</span>
+        <span kcm="ty" draggable="true">体育</span>
+        <span kcm="yw" draggable="true">语文</span>
+    </div>
+    <h2 style="text-align: center;">课程表</h2>
+    <table class="kcb">
+        <tr>
+            <td>节次/星期</td>
+            <td>星期一</td>
+            <td>星期二</td>
+            <td>星期三</td>
+            <td>星期四</td>
+            <td>星期五</td>
+        </tr>
+        <tr>
+            <td>12节</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>34节</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>56节</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>78节</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>910节</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <script>
+
+        let source // 存储拖动的源对象
+        function binddragstart() {
+            let spans = document.querySelectorAll("span[kcm]") // 第一次执行的时候，是给kclist中的span绑定拖动开始事件
+            for (let span of spans) {
+                // 给所有的span添加dragstart, 并存储自定义属性kcm
+                span.ondragstart = function (e) {
+                    source = this  // 把拖动的源对象保存到source变量中
+                    // 设置拖动的鼠标效果，effectAllowed只能在dragstart事件中设置
+                    if (source.closest(".kclist")) {  // 如果来自左侧课程列表，那么是复制操作
+                        e.dataTransfer.effectAllowed = "copy"
+                    } else {
+                        // 在表格内部拖动，如果按下了ctrl，是复制操作，否则是移动
+                        if (e.ctrlKey) {
+                            e.dataTransfer.effectAllowed = "copy"
+                        } else {
+                            e.dataTransfer.effectAllowed = "move"
+                        }
+                    }
+                }
+            }
+        }
+        binddragstart()
+
+
+        // 给下面所有的的空白格子的td设置dragover，dragenter，dragleave, drop事件
+        let tds = document.querySelectorAll(".kcb td:empty")
+        for (const td of tds) {
+            td.ondragenter = function () {
+                this.style.outline = "2px solid #000"
+            }
+            td.ondragleave = function () {
+                this.style.outline = "none"
+            }
+            td.ondragover = function (e) {
+                e.preventDefault();
+            }
+            td.ondrop = function (e) {
+                this.style.outline = "none"
+                source.style.border = "none"
+                // 一个单元格中不能有多个课程
+                if (this.children.length != 0) {
+                    this.children[0].remove()
+                }
+                // 判断一下课程是从左侧拖进来还是从一个单元格拖动到另一个单元格
+                if (source.closest(".kcb")) {  // 放下的时候看下拖动的元素是否是来自表格
+                    if (e.ctrlKey) {
+                        this.append(source.cloneNode(true))
+                    } else {
+                        this.append(source)
+                    }
+                } else {
+                    this.append(source.cloneNode(true)) // 如果从左侧拖进来，就复制
+                }
+                // 给当前整个表格中的所有拖进来的课程设置dragstart事件
+                binddragstart()
+            }
+        }
+
+        // 4、课程从表格中拖到课程列表中
+        let kclist = document.querySelector(".kclist")
+        kclist.ondragenter = function (e) {
+            // 进入左侧列表需要判断一下，如果是从kclist拖动到kclist，那么边框不高亮
+            if (this.contains(source)) return
+            this.style.border = "2px solid #000"
+        }
+        kclist.ondragover = function (e) {
+            e.preventDefault()
+        }
+        kclist.ondragleave = function (e) {
+            this.style.border = "1px solid #ccc"
+        }
+        kclist.ondrop = function (e) {
+            this.style.border = "1px solid #ccc"
+            let kcm = source.getAttribute("kcm")
+            if (source.parentElement.tagName == "TD") {
+                source.remove()
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- test.js中有操作h1的代码，所以必须要等待HTML解析完成以后，才能执行其中的js代码，方法有两种 -->
+    <!-- 
+    1、script中添加defer或者async属性
+    2、script标签放在h1的后面
+    -->
+    <!-- <script src="js/test.js" defer></script> -->
+    <script src="js/a.js" defer></script>
+    <script src="js/b.js" defer></script>
+    <!-- <script src="js/test.js"></script> -->
+    <h1>我是一个h1</h1>
+    <ul>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+    </ul>
+</body>
+
+</html>

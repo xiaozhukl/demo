@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>组件拖拽与编排示例</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        #componentsPanel,
+        #propertiesPanel {
+            width: 200px;
+            height: 400px;
+            border: 1px solid black;
+            background-color: white;
+            padding: 10px;
+
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        #componentsPanel .component {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: grab;
+        }
+
+        #orchestrationArea {
+            width: 600px;
+            height: 400px;
+            border: 1px solid black;
+            background-color: white;
+            position: relative;
+        }
+
+        .component,
+        .link,
+        .deleteIcon {
+            position: absolute;
+            cursor: pointer;
+        }
+
+        .deleteIcon {
+            display: none;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+        }
+
+        .component:hover .deleteIcon {
+            display: block;
+        }
+
+        .properties {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="componentsPanel">
+        <div class="component" draggable="true">A</div>
+        <div class="component" draggable="true">B</div>
+        <div class="component" draggable="true">c</div>
+        <div class="component" draggable="true">d</div>
+        <div class="component" draggable="true">e</div>
+        <div class="component" draggable="true">f</div>
+        <div class="component" draggable="true">h</div>
+        <div class="component" draggable="true">h</div>
+        <!-- 更多组件... -->
+    </div>
+    <div id="orchestrationArea">
+        <!-- 编排区的组件和连线将通过JavaScript动态添加 -->
+    </div>
+    <div id="propertiesPanel">
+        <div class="properties">组件属性将在这里显示</div>
+    </div>
+
+    <script>
+        // JavaScript代码
+        // 组件拖拽逻辑
+        const componentsPanel = document.getElementById('componentsPanel');
+        const orchestrationArea = document.getElementById('orchestrationArea');
+        const components = componentsPanel.getElementsByClassName('component');
+
+        for (let component of components) {
+            component.addEventListener('dragstart', function (e) {
+                e.dataTransfer.setData('text/plain', this.innerText);
+                this.style.opacity = '0.4';
+            });
+            component.addEventListener('dragend', function (e) {
+                this.style.opacity = '1';
+            });
+        }
+
+        orchestrationArea.addEventListener('dragover', function (e) {
+            e.preventDefault();
+        });
+
+        orchestrationArea.addEventListener('drop', function (e) {
+            e.preventDefault();
+            const data = e.dataTransfer.getData('text/plain');
+            const newComponent = document.createElement('div');
+            newComponent.innerText = data;
+            newComponent.className = 'component';
+            newComponent.style.left = e.clientX - 25 + 'px';
+            newComponent.style.top = e.clientY - 25 + 'px';
+            orchestrationArea.appendChild(newComponent);
+
+            // 拖拽结束，可以添加组件的点击事件来显示属性和删除图标等
+            newComponent.addEventListener('click', function () {
+                const propertiesPanel = document.getElementById('propertiesPanel');
+                propertiesPanel.innerHTML = `<div class="properties">名称: ${data}</div><div class="properties">描述: 组件描述</div>`;
+            });
+        });
+
+        // 组件连线和删除逻辑
+        // ... 需要进一步实现 ...
+    </script>
+</body>
+
+</html>

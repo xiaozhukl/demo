@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            outline: none;
+            border: none;
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        :root {
+            --bgcolor: #339;
+            --hoverbgcolor: color-mix(in srgb, var(--bgcolor), #fff 10%);
+            --activebgcolor: color-mix(in srgb, var(--bgcolor), #000 30%);
+        }
+
+        button {
+            background: #339;
+            font-size: 12px;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 4px;
+            margin: 10px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: var(--hoverbgcolor);
+        }
+
+        button:active {
+            background: var(--activebgcolor);
+        }
+    </style>
+</head>
+
+<body>
+    <button>按钮</button>
+</body>
+
+</html>

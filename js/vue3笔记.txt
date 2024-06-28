@@ -1,0 +1,18 @@
+1、watch
+（1）监听ref定义的基本数据
+watch(name,()=>{})
+（2）监听ref定义的对象数据
+watch(obj, ()=>{}, {deep:true, immediate:true})
+（3）监听reactive定义的对象数据 (自带深度监听)
+watch(obj, ()=>{})
+（4）监听ref或者reactive定义的单个数据 (只要是单个数据，监听源一定要写成函数形式，返回一个值)
+watch(()=>obj.name, ()=>{})
+
+2、ref （用于标签或者组件）
+<div ref="box">abc</div>
+let box=ref()
+console.log(box.value)  // 获取div标签
+
+3、vue3的声明周期
+onMounted : 挂载
+onUpdated：更新

@@ -1,0 +1,16 @@
+.box {
+  background: red;
+}
+
+.box:hover p {
+  color: red;
+}
+
+.box p {
+  color: red;
+}
+
+.box p > a {
+  text-decoration: none;
+}
+/*# sourceMappingURL=a.css.map */

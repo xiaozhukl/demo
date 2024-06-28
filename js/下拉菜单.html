@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            --nav-bgcolor: #f30;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            background: var(--nav-bgcolor);
+        }
+
+        .menu>ul {
+            width: 1200px;
+            margin: auto;
+            display: flex;
+        }
+
+        .menu>ul>li {
+            flex: 1;
+            text-align: center;
+            line-height: 60px;
+            position: relative;
+        }
+
+        .menu>ul>li a {
+            font-size: 12px;
+            color: #fff;
+        }
+
+        .menu>ul>li>ul {
+            position: absolute;
+            background: #123;
+            left: 0;
+            right: 0;
+            height: 0;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .menu>ul>li:hover {
+            background: #123;
+        }
+
+        .menu>ul>li>ul>li:hover {
+            background: var(--nav-bgcolor);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="menu">
+        <ul>
+            <li><a href="#">网站首页</a>
+                <ul>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#">网站首页</a>
+                <ul>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#">网站首页</a>
+                <ul>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#">网站首页</a>
+                <ul>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#">网站首页</a>
+            </li>
+
+            <li><a href="#">网站首页</a>
+                <ul>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#">网站首页</a>
+            </li>
+
+            <li><a href="#">网站首页</a>
+                <ul>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+
+    <script>
+        let lis = document.querySelectorAll(".menu>ul>li")
+        for (const li of lis) {
+            li.onmouseenter = function () {
+                this.querySelector("ul") ? this.querySelector("ul").style.height = this.querySelector("ul").scrollHeight + 'px' : ''
+            }
+            li.onmouseleave = function () {
+                this.querySelector("ul") ? this.querySelector("ul").style.height = 0 : ''
+            }
+        }
+    </script>
+</body>
+
+</html>

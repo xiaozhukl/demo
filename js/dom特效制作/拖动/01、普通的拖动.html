@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 50px;
+            height: 50px;
+            background: red;
+            position: absolute;
+            top: 50px;
+            left: 50px;
+        }
+
+        .container {
+            width: 800px;
+            height: 600px;
+            margin: 50px auto;
+            border: 1px solid #000;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box"></div>
+    </div>
+
+    <script>
+        let box = document.querySelector(".box")
+        let container = document.querySelector(".container")
+        box.onmousedown = function () {
+            // 重点： 获取鼠标点击的位置，距离元素左边和上面的尺寸
+            let offsetX = event.clientX - this.offsetLeft
+            let offsetY = event.clientY - this.offsetTop
+            document.onmousemove = function () {
+                // console.log(offsetX, offsetY)
+                // 给box设置left和top值
+                let x = event.clientX - offsetX
+                let y = event.clientY - offsetY
+
+                // 边界处理
+                if (x <= 0) x = 0
+                if (x >= container.offsetWidth - box.offsetWidth) x = container.offsetWidth - box.offsetWidth
+                if (y <= 0) y = 0
+                if (y >= container.offsetHeight - box.offsetHeight) y = container.offsetHeight - box.offsetHeight
+
+                // 设置left和top值
+                box.style.left = x + "px"
+                box.style.top = y + "px"
+            }
+
+            document.onmouseup = function () {
+                this.onmousemove = null
+                this.onmouseup = null
+            }
+        }
+    </script>
+</body>
+
+</html>

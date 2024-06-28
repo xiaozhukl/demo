@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+
+    <style>
+        body {
+            background: #f5f5f5;
+        }
+
+        .tab {
+            width: 50%;
+            margin: 50px auto;
+            background: #fff;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .tab .head {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab .head ul {
+            width: 70%;
+            margin: auto;
+            display: flex;
+        }
+
+        .tab .head li {
+            flex: 1;
+            text-align: center;
+            line-height: 60px;
+            /* transform: translateY(1px); */
+            margin-bottom: -1px;
+        }
+
+
+        .tab .head li.active {
+            border-bottom: 1px solid #339;
+        }
+
+        .tab .body {
+
+            /* 关键改造css代码 */
+            display: flex;
+            /* border: 1px solid red; */
+            transition: 0.3s;
+        }
+
+        /* 关键改造css代码 */
+        .tab .body>div {
+            padding: 40px;
+            flex: 0 0 100%;
+            align-self: flex-start;
+            /* border: 1px solid #000; */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- https://www.xueyinonline.com/detail/241603933 -->
+    <div class="tab mytab1">
+        <!-- 头部 -->
+        <div class="head">
+            <ul>
+                <li class="active">课程简介</li>
+                <li>课程章节</li>
+                <li>师生互答</li>
+                <li>课程评价</li>
+                <li>常见问题</li>
+                <li>知识图谱</li>
+            </ul>
+        </div>
+        <!-- 内容区域 -->
+        <div class="body">
+            <div>课程简介的内容。。。。。</div>
+            <div>课程章节的内容。。。。。</div>
+            <div>师生互答的内容。。。。。</div>
+            <div>课程评价的内容。。。。。</div>
+            <div>常见问题的内容。。。。。</div>
+            <div>知识图谱的内容。。。。。
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla voluptatum aliquid commodi quia
+                veritatis obcaecati tenetur animi modi ut, eaque enim deleniti incidunt. Soluta suscipit magnam
+                molestias atque sit. Consequatur autem, expedita modi officia rem consequuntur necessitatibus tenetur
+                sint accusantium non odio atque fugit. Doloribus excepturi, natus saepe numquam doloremque atque
+                delectus odio exercitationem cupiditate tempore deleniti quibusdam officia neque distinctio repellat
+                modi aliquid rerum error deserunt. Fugiat numquam dicta officiis, molestias pariatur aut deleniti quis,
+                consectetur tempora voluptatibus, commodi quasi at itaque dignissimos porro. Placeat iusto ab tempora
+                eos enim? Fugiat impedit, nam maxime natus animi quam aperiam odio?
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="tab mytab2">
+        <!-- 头部 -->
+        <div class="head">
+            <ul>
+                <li class="active">课程简介</li>
+                <li>课程章节</li>
+                <li>师生互答</li>
+                <li>课程评价</li>
+                <li>常见问题</li>
+                <li>知识图谱</li>
+            </ul>
+        </div>
+        <!-- 内容区域 -->
+        <div class="body">
+            <div>课程简介的内容。。。。。</div>
+            <div>课程章节的内容。。。。。</div>
+            <div>师生互答的内容。。。。。</div>
+            <div>课程评价的内容。。。。。</div>
+            <div>常见问题的内容。。。。。</div>
+            <div>知识图谱的内容。。。。。
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla voluptatum aliquid commodi quia
+                veritatis obcaecati tenetur animi modi ut, eaque enim deleniti incidunt. Soluta suscipit magnam
+                molestias atque sit. Consequatur autem, expedita modi officia rem consequuntur necessitatibus tenetur
+                sint accusantium non odio atque fugit. Doloribus excepturi, natus saepe numquam doloremque atque
+                delectus odio exercitationem cupiditate tempore deleniti quibusdam officia neque distinctio repellat
+                modi aliquid rerum error deserunt. Fugiat numquam dicta officiis, molestias pariatur aut deleniti quis,
+                consectetur tempora voluptatibus, commodi quasi at itaque dignissimos porro. Placeat iusto ab tempora
+                eos enim? Fugiat impedit, nam maxime natus animi quam aperiam odio?
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 给所有的li添加一个index属性，这样我们就知道点击的是第几个li，可以让对应下面的div显示或隐藏     
+        // let lis = document.querySelectorAll(".tab .head li")
+        // lis.forEach((v, k) => {
+        //     v.setAttribute("index", k)
+        //     v.onclick = function () {
+        //         // 给当前标签栏添加active类名
+        //         document.querySelector(".tab .head li.active").classList.remove("active")
+        //         this.classList.add("active")
+        //         let i = this.getAttribute("index")
+        //         // 给下面的内容区域添加active类名
+        //         document.querySelector(".tab .body div.active").classList.remove("active")
+        //         document.querySelectorAll(".tab .body div")[i].classList.add("active")
+        //     }
+        // })
+
+
+        // tab切换封装
+        // 传递一个options给我，{container:".tab"}
+        function CreateTab(options) {
+            this.tab = document.querySelector(options.container)
+            this.lis = this.tab.querySelectorAll(".head>ul>li")
+            this.divs = this.tab.querySelectorAll(".body>div")
+        }
+
+        // 在构造函数的原型上添加初始化方法
+        CreateTab.prototype.init = function () {
+            // 设置body的高度为第一个div的高度
+            this.tab.querySelector(".body").style.height = this.tab.querySelectorAll(".body>div")[0].offsetHeight + 'px'
+            this.lis.forEach((v, k) => {
+                v.setAttribute("index", k)
+                // 保存外面的this
+                let _this = this
+                v.onclick = function () {
+                    _this.tab.querySelector(".head>ul>li.active").classList.remove("active")
+                    this.classList.add("active")
+                    // 修改：
+                    let i = this.getAttribute("index")
+                    _this.tab.querySelector(".body").style.transform = `translateX(-${i}00%)`
+                    _this.tab.querySelector(".body").style.height = _this.tab.querySelectorAll(".body>div")[i].offsetHeight + 'px'
+                }
+            })
+        }
+
+
+        new CreateTab({
+            container: ".mytab1"
+        }).init()
+
+        new CreateTab({
+            container: ".mytab2"
+        }).init()
+
+
+    </script>
+</body>
+
+</html>

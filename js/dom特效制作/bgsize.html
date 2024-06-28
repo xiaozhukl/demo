@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        .aa {
+            width: 40px;
+            height: 40px;
+            background: #339;
+            display: grid;
+            place-content: center;
+            color: #fff;
+            /* border-radius: 100%; */
+            cursor: pointer;
+            user-select: none;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+        }
+
+        .aa .menu {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            border: 1px solid #000;
+            bottom: 100%;
+            color: #123;
+
+            display: none;
+        }
+
+        .aa.active .menu {
+            display: block;
+        }
+
+
+
+        .full {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99999;
+            display: none;
+        }
+
+        .full.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="aa">
+        拖动我
+        <ul class="menu">
+            <li>菜单</li>
+            <li class="lock">锁屏</li>
+        </ul>
+    </div>
+
+    <div class="full"></div>
+
+
+    <script>
+        let aa = document.querySelector(".aa")
+        aa.onmousedown = function (e) {
+            let { clientX, clientY } = e
+            let { offsetLeft, offsetTop } = this
+            let x = clientX - offsetLeft
+            let y = clientY - offsetTop
+            document.onmousemove = function (e) {
+                let { clientX, clientY } = e
+                aa.style.left = clientX - x + "px"
+                aa.style.top = e.clientY - y + 'px'
+            }
+            document.onmouseup = function () {
+                document.onmousemove = null
+            }
+        }
+
+        aa.onclick = function (e) {
+            this.classList.add("active")
+        }
+
+        let lock = document.querySelector(".lock")
+        let full = document.querySelector(".full")
+        lock.onclick = function () {
+            full.classList.add("active")
+            aa.classList.remove("active")
+        }
+
+        document.onkeydown = function (e) {
+            full.classList.remove("active")
+            aa.classList.remove("active")
+        }
+
+    </script>
+</body>
+
+</html>

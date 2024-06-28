@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4544968_yd89frbs1cn.css">
+    <style>
+        .menu {
+            background: #339;
+            display: flex;
+            justify-content: center;
+        }
+
+        .menu a {
+            color: #fff;
+        }
+
+        .menu>ul {
+            width: 1200px;
+            margin: auto;
+            display: flex;
+        }
+
+        .menu>ul>li {
+            flex: 1;
+            text-align: center;
+            line-height: 60px;
+            position: relative;
+            transition: 0.2s;
+        }
+
+        .menu>ul>li:hover {
+            background: #123;
+        }
+
+        .menu>ul>li>ul {
+            position: absolute;
+            left: 0;
+            right: 0;
+            background: #123;
+
+            /* 核心css样式 */
+            height: 0;
+            overflow: hidden;
+            transition: 0.2s;
+        }
+
+        .menu>ul>li>ul>li {
+            transition: 0.2s;
+        }
+
+        .menu>ul>li>ul>li:hover {
+            background: #339;
+        }
+
+        .iconfont {
+            display: inline-block;
+            vertical-align: -2px;
+            transition: 0.3s;
+        }
+
+
+        /* 箭头的动画 */
+        .menu>ul>li:hover .iconfont {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="menu">
+        <ul>
+            <li><a href="#">网站菜单 <i class="iconfont icon-iconfonti2-copy-copy-copy-copy"></i></a>
+                <ul>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#">网站菜单</a></li>
+
+            <li><a href="#">网站菜单 <i class="iconfont icon-iconfonti2-copy-copy-copy-copy"></i></a>
+                <ul>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#">网站菜单 <i class="iconfont icon-iconfonti2-copy-copy-copy-copy"></i></a>
+                <ul>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#">网站菜单 <i class="iconfont icon-iconfonti2-copy-copy-copy-copy"></i> </a>
+                <ul>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#">网站菜单 <i class="iconfont icon-iconfonti2-copy-copy-copy-copy"></i></a>
+                <ul>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#">网站菜单 <i class="iconfont icon-iconfonti2-copy-copy-copy-copy"></i></a>
+                <ul>
+                    <li><a href="#">子菜单栏目</a></li>
+                    <li><a href="#">子菜单栏目</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+
+    <script>
+        // 给所有的一级li绑定鼠标经过和移开的时间
+        let lis = document.querySelectorAll(".menu>ul>li")
+        for (const li of lis) {
+            // 建议经过和移开事件使用mouseenter和mouseleave，因为mouseover和mouseout有冒泡行为，会冒泡到父级
+            li.onmouseenter = function () {
+                let ul = this.querySelector("ul")
+                if (ul) {
+                    ul.style.height = ul.scrollHeight + 'px'
+                }
+            }
+            li.onmouseleave = function () {
+                let ul = this.querySelector("ul")
+                if (ul) {
+                    ul.style.height = 0
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

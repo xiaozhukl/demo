@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            --height: 0px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 500px;
+            background: red;
+            height: var(--height);
+            overflow: hidden;
+            transition: 0.2s;
+        }
+
+        .box .content {
+            padding: 20px;
+            font-size: 12px;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <button>高度动画 </button>
+    <div class="box">
+        <div class="content">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut quis nobis saepe tenetur nisi atque quo
+            pariatur, officia aut dolorem debitis, doloremque enim accusantium voluptates repellendus neque labore,
+            quibusdam praesentium beatae fugit dicta. Molestiae tenetur aut nam inventore maiores itaque nemo commodi
+            laborum, doloribus nobis quos temporibus ipsam laudantium adipisci excepturi reprehenderit porro debitis
+            quidem distinctio beatae vero illo tempora, reiciendis quam! Doloribus adipisci voluptatibus sed, similique
+            maiores, id aspernatur in rerum nihil consequatur consequuntur pariatur inventore mollitia eos eaque amet
+            minus vitae itaque ipsa possimus nam aliquam culpa. Nam obcaecati cumque facilis dolorum vero fuga vel
+            inventore distinctio a?
+        </div>
+    </div>
+
+
+    <script>
+        let btn = document.querySelector("button")
+        let i = 1
+        btn.onclick = function () {
+            let content = document.querySelector(".content")
+            let box = document.querySelector(".box")
+            // box.style.height = content.scrollHeight + 'px'
+            if (i == 1) {
+                document.documentElement.style.setProperty("--height", content.scrollHeight + 'px')
+                i = 0
+            } else {
+                document.documentElement.style.setProperty("--height", 0 + 'px')
+                i = 1
+            }
+        }
+    </script>
+</body>
+
+</html>

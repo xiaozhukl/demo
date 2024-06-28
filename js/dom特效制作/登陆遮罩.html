@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        .menu {
+            margin: 50px auto;
+            background: #f30;
+            display: flex;
+            justify-content: center;
+        }
+
+        .menu ul {
+            width: 1200px;
+            display: flex;
+        }
+
+        .menu ul li {
+            flex: 1;
+            font-size: 12px;
+            text-align: center;
+            line-height: 60px;
+            height: 60px;
+        }
+
+        .menu ul li.highlight .pop {
+            position: absolute;
+            width: 500px;
+            height: 300px;
+            padding: 20px;
+            left: 50%;
+            transform: translateX(-250px);
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+            margin-top: 10px;
+        }
+
+        .menu ul li a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .highlight {
+            position: relative;
+            z-index: 101;
+            background: #f30;
+        }
+
+        .mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="menu">
+        <ul>
+            <li><a href="#">菜单</a></li>
+            <li><a href="#">菜单</a></li>
+            <li><a href="#">菜单</a></li>
+            <li class="highlight"><a href="#">政策法规</a>
+                <div class="pop">
+                    此处使用elementui组件Popover，上下两部分
+                </div>
+            </li>
+            <li><a href="#">菜单</a></li>
+            <li><a href="#">菜单</a></li>
+            <li><a href="#">菜单</a></li>
+            <li><a href="#">菜单</a></li>
+        </ul>
+    </nav>
+    <div class="mask"></div>
+
+</body>
+
+</html>

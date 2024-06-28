@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordion Menu with Animation</title>
+    <style>
+        .accordion {
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        .accordion-item {
+            margin-bottom: 5px;
+        }
+
+        .accordion-header {
+            padding: 10px;
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: #eaeaea;
+        }
+
+        .accordion-body {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-header {
+            border-bottom: none;
+        }
+
+        .accordion-item.active .accordion-body {
+            max-height: 500px;
+            /* Adjust as needed */
+            border: 1px solid #ddd;
+            border-top: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="accordion">
+        <div class="accordion-item">
+            <button class="accordion-header">Section 1</button>
+            <div class="accordion-body">
+                <p>Content for section 1...</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <button class="accordion-header">Section 2</button>
+            <div class="accordion-body">
+                <p>Content for section 2...</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <button class="accordion-header">Section 3</button>
+            <div class="accordion-body">
+                <p>Content for section 3...</p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function () {
+                    // Toggle active class on the clicked header's parent item
+                    const item = this.parentElement;
+                    item.classList.toggle('active');
+
+                    // Toggle the display of the accordion body
+                    const body = item.querySelector('.accordion-body');
+                    body.style.display = body.style.display === 'none' ? 'block' : 'none';
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

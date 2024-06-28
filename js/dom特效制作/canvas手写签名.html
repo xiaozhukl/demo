@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写签名</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+
+        #saveButton,
+        #clearButton {
+            margin-top: 10px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="drawingCanvas" width="500" height="500"></canvas>
+    <button id="saveButton">保存为图片</button>
+    <button id="clearButton">清空画布</button>
+
+    <script>
+        // 获取canvas元素和上下文
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // 定义画笔颜色和粗细
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 2;
+
+        // 定义变量来保存鼠标坐标和绘制状态
+        let isDrawing = false;
+        let currentX = 0;
+        let currentY = 0;
+
+        // 鼠标按下事件
+        canvas.onmousedown = function (e) {
+            isDrawing = true;
+            ctx.beginPath();
+            ctx.moveTo(e.clientX, e.clientY); // 移动到起始点
+        };
+
+        // 鼠标移动事件
+        canvas.onmousemove = function (e) {
+            if (isDrawing) {
+                ctx.lineTo(e.clientX, e.clientY); // 画线到当前鼠标位置
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(e.clientX, e.clientY); // 移动到新的起始点，准备下一笔画
+            }
+        };
+
+        // 鼠标抬起事件
+        canvas.onmouseup = function () {
+            isDrawing = false;
+        };
+
+        // 鼠标离开canvas事件
+        canvas.onmouseleave = function () {
+            isDrawing = false;
+        };
+
+        // 保存按钮事件
+        document.getElementById('saveButton').addEventListener('click', function () {
+            const image = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = 'canvas_image.png';
+            link.href = image;
+            link.click();
+        });
+
+        // 清空画布按钮事件
+        document.getElementById('clearButton').addEventListener('click', function () {
+            canvas.width = canvas.width; // 重置画布
+        });
+    </script>
+
+</body>
+
+</html>

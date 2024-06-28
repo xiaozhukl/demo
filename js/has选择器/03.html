@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            border: 1px solid #000;
+        }
+
+        /* 所有包含p标签的div */
+        /* div:has(p) {
+            background: red;
+        } */
+
+
+        /* div中除了p以外还有别的标签的那些div */
+        /* div:has(:not(p)) {
+            background: red;
+        } */
+
+
+        /* 只有p标签的div */
+        /* div:not(:has(:not(p))) {
+            background: red;
+        } */
+    </style>
+</head>
+
+<body>
+    <div>
+        <p>abcd</p>
+    </div>
+    <div>
+        <p>heheheh</p>
+        <hr>
+    </div>
+    <div>
+        <hr>
+        <p>heheheheheheheh</p>
+        <p>heheheheheheheh</p>
+    </div>
+</body>
+
+</html>

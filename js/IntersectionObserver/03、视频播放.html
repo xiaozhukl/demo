@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 1500px;
+        }
+    </style>
+</head>
+
+<body>
+    <video src="https://cms.sdcms.cn/upfile/2020/08/1597194275517.mp4" width="800" controls autoplay></video>
+    <script>
+        let video = document.querySelector("video")
+
+        let io = new IntersectionObserver(items => {
+            // 如果监听的是一个元素，直接这样使用就可以了，不用for
+            let item = items[0]
+            // 如果视频完全出现在视口中
+            if (item.isIntersecting) {
+                video.play()
+            } else {
+                video.pause()
+            }
+        }, {
+            threshold: 1
+        })
+
+        io.observe(video)
+    </script>
+</body>
+
+</html>

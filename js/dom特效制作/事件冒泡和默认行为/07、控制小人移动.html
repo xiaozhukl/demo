@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            left: 200px;
+            top: 200px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+
+    </div>
+
+    <script>
+        let box = document.querySelector(".box")
+        document.onkeydown = function (e) {
+            // 向右
+            if (e.keyCode == 39) {
+
+                box.style.left = box.getBoundingClientRect().x + 10 + "px"
+                console.log(box.style.left)
+            }
+        }
+    </script>
+</body>
+
+</html>

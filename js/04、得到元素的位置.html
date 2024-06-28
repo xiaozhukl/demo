@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 400px;
+            /* height: 200px; */
+            background: red;
+            border: 10px solid green;
+            margin: 50px;
+
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo voluptatem corporis, nostrum atque necessitatibus
+        cumque dolore delectus laboriosam saepe similique illum enim error, porro temporibus quam fugiat voluptatum
+        exercitationem maxime?
+    </div>
+
+    <script>
+        let box = document.querySelector(".box")
+        let abc = box.getBoundingClientRect()
+        console.log(abc);
+    </script>
+</body>
+
+</html>

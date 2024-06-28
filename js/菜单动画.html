@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 500px;
+            background: red;
+            color: #fff;
+            display: none;
+            transition: 0.3s;
+        }
+
+        [popover] {
+            background: red;
+            padding: 30px;
+            width: 500px;
+            top: 0;
+            left: 0;
+            margin: 0;
+        }
+
+        /* #aa::backdrop {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        #aa[popover] {
+            width: 300px;
+            padding: 20px;
+            border: none;
+            top: 0 !important;
+        } */
+
+        /* .list {
+            border: 1px solid red;
+
+            >li {
+                border: 1px solid blue;
+
+                >ul {
+                    background: #339;
+
+                    >li {
+                        color: #fff;
+                    }
+                }
+            }
+
+            a {
+                text-decoration: none;
+            }
+        } */
+    </style>
+</head>
+
+<body>
+    <!-- <ul class="list">
+        <li>
+            <a href="#">heheh</a>
+            <ul>
+                <li>nihao</li>
+                <li>sjfksdjkdf</li>
+            </ul>
+        </li>
+    </ul> -->
+
+
+    <button>展开收缩
+
+        <div class="box">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ducimus dignissimos facere! Laborum
+            debitis,
+            dolore quia eligendi asperiores sit, illo laudantium excepturi obcaecati veniam molestias officiis
+            quibusdam.
+            Amet, ipsa enim explicabo architecto repudiandae tenetur ex minima officia, consequuntur illo exercitationem
+            vero ipsam. Nam iste iusto tenetur magni impedit! Ea doloremque minus illum ducimus tempore consequuntur
+            perferendis facere exercitationem consectetur, sequi corporis impedit! Corporis, debitis deleniti! Nam
+            eveniet
+            magnam fugiat neque, eaque vero non tenetur minima nihil. Distinctio modi eius non consectetur eveniet
+            officia,
+            iure quo aut nesciunt enim, quibusdam dolorem sit excepturi sed commodi repellat praesentium soluta?
+            Repellendus, necessitatibus eum.
+        </div>
+
+    </button>
+
+    <hr>
+    <button class="pop" popovertarget="aa">popover</button>
+    <p id="aa" popover>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde asperiores distinctio, id corporis
+        odit
+        eveniet in.
+        Exercitationem perspiciatis distinctio, hic labore repudiandae quia veniam, praesentium temporibus quasi iste
+        velit nisi?</p>
+    <script>
+        let btn = document.querySelector("button")
+        let box = document.querySelector(".box")
+        btn.onmouseenter = function () {
+            box.style.display = 'block'
+            box.style.height = "auto"
+            let height = box.scrollHeight
+            box.style.height = 0
+            box.offsetHeight
+            box.style.height = height + "px"
+        }
+
+        btn.onmouseleave = function () {
+            box.style.height = 0
+        }
+    </script>
+</body>
+
+</html>

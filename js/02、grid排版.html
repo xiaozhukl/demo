@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        .news {
+            padding: 50px 0;
+            background: #339;
+        }
+
+        .news .warp {
+            width: 1200px;
+            min-width: 1200px;
+            margin: auto;
+            color: #fff;
+        }
+
+        .news .title {
+            display: flex;
+            margin-bottom: 25px;
+        }
+
+        .news .title h2 {
+            font-size: 20px;
+        }
+
+        .news .title div {
+            margin-left: auto;
+            font-size: 12px;
+            opacity: 0.5;
+        }
+
+        .news .content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 20px;
+        }
+
+        .news .content li {
+            aspect-ratio: 16/9;
+            background: #fff;
+            color: #339;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="news">
+        <div class="warp">
+            <div class="title">
+                <h2>新闻通知/News</h2>
+                <div>More>></div>
+            </div>
+            <ul class="content">
+                <li>abcdefg</li>
+                <li>abcdefg</li>
+                <li>abcdefg</li>
+                <li>abcdefg</li>
+                <li>abcdefg</li>
+                <li>abcdefg</li>
+                <li>abcdefg</li>
+                <li>abcdefg</li>
+                <li>abcdefg</li>
+                <li>abcdefg</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

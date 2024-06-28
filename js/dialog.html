@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="file" accept="image/*" capture="camera">
+
+    <button>分享</button>
+    <hr>
+    <button popovertarget="mypopover">toggle the popover</button>
+    <div id="mypopover" popover>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero quia ex, fuga nulla ea
+        aliquid porro minima atque, iusto mollitia dignissimos facere quasi tempora repellat cupiditate reiciendis, quis
+        doloribus dolor?</div>
+    <script>
+        let btn = document.querySelector("button")
+        btn.onclick = function () {
+            navigator.share({
+                title: "标题",
+                text: "内容",
+                url: "https://www.baidu.com"
+            }).then(() => {
+                console.log('success')
+            })
+        }
+    </script>
+</body>
+
+</html>

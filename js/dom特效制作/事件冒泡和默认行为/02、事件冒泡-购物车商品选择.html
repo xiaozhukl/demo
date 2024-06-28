@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+
+        .shoplist li {
+            padding: 20px;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .shoplist li input[type=checkbox] {
+            margin-right: 20px;
+            margin-top: 3px;
+        }
+
+        .shoplist li .content h4 {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .shoplist li .content p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .shoplist li .content .num {
+            display: flex;
+            gap: 5px;
+        }
+
+        .shoplist li .content button {
+            border: none;
+            outline: none;
+            padding: 3px 8px;
+            border: 1px solid #ddd;
+        }
+
+        .shoplist li .content input {
+            border: none;
+            outline: none;
+            border: 1px solid #ddd;
+            text-align: center;
+            width: 50px;
+        }
+
+        /* 定义li的active */
+        .shoplist li.active {
+            background: #339;
+            color: #fff;
+            border-color: #339;
+        }
+
+        .shoplist li.active :is(h4, p) {
+            color: #fff !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="shoplist">
+        <ul>
+            <li>
+                <input type="checkbox" name="shop">
+                <div class="content">
+                    <h4>我是商品的标题</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, quia totam! Sit animi,
+                        explicabo rem modi dolore alias cupiditate laudantium amet dolorem veniam, magnam nesciunt
+                        doloribus suscipit exercitationem? Nisi, corrupti.</p>
+                    <div class="num">
+                        <button class="jian">-</button>
+                        <input type="text" value="1" readonly>
+                        <button class="jia">+</button>
+                    </div>
+                </div>
+            </li>
+
+
+            <li>
+                <input type="checkbox" name="shop">
+                <div class="content">
+                    <h4>我是商品的标题</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, quia totam! Sit animi,
+                        explicabo rem modi dolore alias cupiditate laudantium amet dolorem veniam, magnam nesciunt
+                        doloribus suscipit exercitationem? Nisi, corrupti.</p>
+                    <div class="num">
+                        <button class="jian">-</button>
+                        <input type="text" value="1" readonly>
+                        <button class="jia">+</button>
+                    </div>
+                </div>
+            </li>
+
+
+            <li>
+                <input type="checkbox" name="shop">
+                <div class="content">
+                    <h4>我是商品的标题</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, quia totam! Sit animi,
+                        explicabo rem modi dolore alias cupiditate laudantium amet dolorem veniam, magnam nesciunt
+                        doloribus suscipit exercitationem? Nisi, corrupti.</p>
+                    <div class="num">
+                        <button class="jian">-</button>
+                        <input type="text" value="1" readonly>
+                        <button class="jia">+</button>
+                    </div>
+                </div>
+            </li>
+
+
+            <li>
+                <input type="checkbox" name="shop">
+                <div class="content">
+                    <h4>我是商品的标题</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, quia totam! Sit animi,
+                        explicabo rem modi dolore alias cupiditate laudantium amet dolorem veniam, magnam nesciunt
+                        doloribus suscipit exercitationem? Nisi, corrupti.</p>
+                    <div class="num">
+                        <button class="jian">-</button>
+                        <input type="text" value="1" readonly>
+                        <button class="jia">+</button>
+                    </div>
+                </div>
+            </li>
+
+
+            <li>
+                <input type="checkbox" name="shop">
+                <div class="content">
+                    <h4>我是商品的标题</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, quia totam! Sit animi,
+                        explicabo rem modi dolore alias cupiditate laudantium amet dolorem veniam, magnam nesciunt
+                        doloribus suscipit exercitationem? Nisi, corrupti.</p>
+                    <div class="num">
+                        <button class="jian">-</button>
+                        <input type="text" value="1" readonly>
+                        <button class="jia">+</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        // 需求
+        // 1、点击复选框，当前li背景变色 （添加active）
+        // 2、点击每个li，每个li变色，对应的复选框打钩或者取消
+        // 3、点击+，-，改变文本框中的数字
+        // 4、点击+，-的时候，不改变li的背景色
+
+        // 处理复选框的勾选
+        let checkboxs = document.querySelectorAll(".shoplist input[type=checkbox]")
+        for (const checkbox of checkboxs) {
+            checkbox.onchange = function () {
+                if (this.checked) {
+                    this.closest("li").classList.add("active")
+                } else {
+                    this.closest("li").classList.remove("active")
+                }
+            }
+        }
+
+
+        // 处理li的点击事件
+        let lis = document.querySelectorAll(".shoplist li")
+        for (const li of lis) {
+            li.onclick = function () {
+                this.classList.toggle("active")
+                if (this.classList.contains("active")) {
+                    this.querySelector("input[type=checkbox]").checked = true
+                } else {
+                    this.querySelector("input[type=checkbox]").checked = false
+                }
+            }
+        }
+
+        // 处理+，-
+        let jians = document.querySelectorAll(".shoplist .jian")
+        let jias = document.querySelectorAll(".shoplist .jia")
+        for (const jian of jians) {
+            jian.onclick = function () {
+                // 阻止冒泡
+                event.stopPropagation()
+                let input = this.nextElementSibling
+                if (parseInt(input.value) > 1) {
+                    input.value = parseInt(input.value) - 1
+                } else {
+                    alert('不能少于1')
+                }
+            }
+        }
+        for (const jia of jias) {
+            jia.onclick = function () {
+                // 阻止冒泡
+                event.stopPropagation()
+                let input = this.previousElementSibling
+                if (parseInt(input.value) <= 100) {
+                    input.value = parseInt(input.value) + 1
+                } else {
+                    alert('不能超过100')
+                }
+            }
+        }
+
+
+        // 给所有的input文本输入框，添加阻止冒泡
+        let inputs = document.querySelectorAll(".shoplist .num input")
+        for (const input of inputs) {
+            input.onclick = function () {
+                event.stopPropagation()
+            }
+        }
+    </script>
+</body>
+
+</html>

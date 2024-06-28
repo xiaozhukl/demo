@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            display: inline-flex;
+            flex-direction: column;
+            padding: 20px;
+            border: 1px solid #ccc;
+            margin: 50px auto;
+        }
+
+        .slide {
+            width: 300px;
+            height: 200px;
+            background: url("./img/verify4.jpg") no-repeat left top;
+            position: relative;
+
+            /* 自定义属性 */
+            --random-top: 100px;
+            --random-left: 200px;
+        }
+
+        .mask {
+            position: absolute;
+            top: var(--random-top);
+            left: var(--random-left);
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.9);
+        }
+
+        .bk {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            outline: 2px solid #000;
+            left: 2px;
+            top: var(--random-top);
+            background: url("./img/verify4.jpg") no-repeat calc(-1*var(--random-left)) calc(-1*var(--random-top));
+        }
+
+        .hk {
+            margin-top: 20px;
+            height: 30px;
+            line-height: 30px;
+            background: #ddd;
+            position: relative;
+        }
+
+        .hk .box {
+            width: 30px;
+            height: 30px;
+            background: #339;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="slide">
+            <div class="mask"></div>
+            <div class="bk" draggable="true"></div>
+        </div>
+
+        <div class="hk">
+            <div class="box"></div>
+        </div>
+    </div>
+
+    <script>
+        // 缺口图片随机出现的位置
+        // mask的 left 的范围 [80,220]
+        // mask的 top 的范围 [10,130]
+
+        let myleft = 80 + Math.floor(Math.random() * (220 - 80 + 1))
+        let mytop = 10 + Math.floor(Math.random() * (130 - 10 + 1))
+        let mask = document.querySelector(".slide .mask")
+        let bk = document.querySelector(".slide .bk")
+        let myx = 0; // 存储蓝色滑块划过的距离
+
+        // 设置mask的位置
+        mask.style.left = myleft + 'px'
+        mask.style.top = mytop + 'px'
+
+        // 设置slide上的自定义属性
+        let slide = document.querySelector(".slide")
+        slide.style.setProperty("--random-left", myleft + "px")
+        slide.style.setProperty("--random-top", mytop + "px")
+
+        // 蓝色的小块拖动
+        let box = document.querySelector(".hk .box")
+        box.onmousedown = function (e) {
+            let x = e.clientX - this.offsetLeft
+            document.onmousemove = function (e) {
+                myx = e.clientX - x
+                if (myx <= 0) myx = 0
+                if (myx >= 270) myx = 270
+                box.style.left = myx + "px"
+                // 改变mask的位置
+                bk.style.left = myx + "px"
+            }
+            document.onmouseup = function () {
+                document.onmousemove = null
+                document.onmouseup = null
+                // 判断有没有重合
+                if (Math.abs(myleft - myx) <= 3) {
+                    alert('验证通过')
+                } else {
+                    alert('验证失败')
+                    bk.style.left = 0
+                    box.style.left = 0
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

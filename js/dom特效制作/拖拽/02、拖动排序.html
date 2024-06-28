@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <style>
+        .list {
+            width: 50%;
+            margin: 100px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+        }
+
+        .list li {
+            line-height: 50px;
+            height: 50px;
+            text-align: center;
+            color: #fff;
+            background: #339;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="list">
+        <li draggable="true">01</li>
+        <li draggable="true">02</li>
+        <li draggable="true">03</li>
+        <li draggable="true">04</li>
+        <li draggable="true">05</li>
+        <li draggable="true">06</li>
+    </ul>
+
+
+    <script>
+        // 给所有的li绑定dragstart事件
+        let source
+        let lis = document.querySelectorAll(".list li")
+        for (const li of lis) {
+            // 拖动开始，保存拖动的元素，设置拖动的样式
+            li.ondragstart = function (e) {
+                source = this
+                // 设置样式
+                this.style.background = "#f60"
+            }
+
+            // 拖动结束清除样式
+            li.ondragend = function (e) {
+                this.style.background = "#339"
+            }
+
+            // 进入目标
+            li.ondragenter = function (e) {
+                if (source == this) return
+                this.style.border = "1px solid #339"
+                this.style.background = "#fff"
+                this.style.color = "#333"
+            }
+            li.ondragleave = function (e) {
+                if (source == this) return
+                this.style.border = "none"
+                this.style.background = "#339"
+                this.style.color = "#fff"
+            }
+            li.ondragover = function (e) {
+                e.preventDefault()
+            }
+            li.ondrop = function (e) {
+                if (source == this) return
+                this.style.border = "none"
+                this.style.background = "#339"
+                this.style.color = "#fff"
+                // 把拖动的元素放在目标元素的前面
+                this.before(source)
+            }
+        }
+    </script>
+</body>
+
+</html>

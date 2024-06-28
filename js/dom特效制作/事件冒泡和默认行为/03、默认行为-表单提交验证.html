@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        form {
+            width: 500px;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+            padding: 30px;
+        }
+
+        form div {
+            display: flex;
+            margin: 15px 0;
+            height: 30px;
+        }
+
+        form div :is(input[type=text], input[type=number], button) {
+            flex: 1;
+            padding: 0 10px;
+        }
+
+        form div:nth-of-type(3) {
+            align-items: center;
+        }
+
+        form div:nth-of-type(3) span {
+            margin-right: 20px;
+        }
+
+        form div button {
+            border: none;
+            outline: none;
+            background: #339;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="http://www.baidu.com">
+        <h2>用户注册</h2>
+        <div>
+            <input type="text" id="user" placeholder="姓名">
+        </div>
+        <div>
+            <input type="number" id="age" placeholder="年龄">
+        </div>
+        <div>
+            <input type="radio" name="sex" id="" value="男"><span>男</span>
+            <input type="radio" name="sex" id="" value="女"><span>女</span>
+        </div>
+        <div>
+            <button class="reg">注册</button>
+        </div>
+    </form>
+
+    <script>
+        // 需求
+        // 1、点击按钮，提交表单
+        // 2、提交的时候验证表单中输入的内容
+        // （1）姓名只能输入中文，5个字以内
+        // （2）年龄在18-100之间
+        // （3）男和女必须选择一个
+        // 3、验证通过，提交表单，跳转到baidu
+        // 4、验证不通过，提示错误信息
+
+        let reg = document.querySelector(".reg")
+        reg.onclick = function () {
+            event.preventDefault() // 防止表单默认提交到baidu
+            let user = document.querySelector("#user")
+            let age = document.querySelector("#age")
+            let xb = document.querySelector("input[type=radio]:checked")
+            // 判断姓名
+            if (user.value.length > 5 || !/^[\u4e00-\u9fa5]+$/.test(user.value)) {
+                alert("姓名只能输入中文，5个字以内")
+                user.focus()
+                return
+            }
+            // 判断年龄
+            if (age.value < 18 || age.value > 100) {
+                alert("年龄在18-100之间")
+                age.focus()
+                return
+            }
+
+            // 判断性别
+            if (!xb) {
+                alert("请选择性别")
+                return
+            }
+
+            // 跳转到baidu
+            location.href = "http://www.baidu.com"
+        }
+    </script>
+</body>
+
+</html>

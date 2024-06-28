@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        dialog {
+            line-height: 1.8;
+            padding: 30px;
+            width: 50vw;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+        }
+
+        dialog::backdrop {
+            backdrop-filter: blur(1px);
+            transition: 0.5s;
+            background: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <button>
+        dialog
+    </button>
+
+    <dialog>
+        <h2>this is a title</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis eveniet quod provident aperiam voluptates esse
+            reprehenderit beatae hic cupiditate sed ipsum quasi, aliquam placeat ratione maiores adipisci illum, quam
+            soluta!</p>
+    </dialog>
+
+    <script>
+        let btn = document.querySelector("button")
+        let dialog = document.querySelector("dialog")
+        btn.onclick = function () {
+            dialog.showModal()
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="user">
+    <button class="add">添加</button>
+
+    <ul class="list">
+        <li>小明 <button class="del">删除</button></li>
+        <li>小白 <button class="del">删除</button></li>
+    </ul>
+
+    <script>
+        // 1、点击添加，把姓名添加到列表中
+        // 2、点击删除，把当前li给删除掉
+
+        let add = document.querySelector(".add")
+        let user = document.querySelector("#user")
+        let list = document.querySelector(".list")
+        add.onclick = function () {
+            list.innerHTML += `
+                <li>${user.value} <button class="del">删除</button></li>
+            `
+            user.value = ""
+            user.focus()
+        }
+
+
+        list.onclick = function () {
+            // event.target是你点击的元素
+            if (event.target.getAttribute("class") == "del") {
+                if (confirm('确定删除吗？')) {
+                    event.target.parentElement.remove()
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .banner {
+            width: 200px;
+            outline: 10px solid #000;
+            margin: 50px auto;
+            /* overflow: hidden; */
+        }
+
+        .banner ul {
+            display: flex;
+        }
+
+        .banner ul li {
+            width: 100%;
+            outline: 1px solid blue;
+            flex-shrink: 0;
+            line-height: 100px;
+            text-align: center;
+            color: #000;
+        }
+
+        .banner ul li:nth-child(even) {
+            /* background: #339; */
+        }
+
+        .banner ul li:nth-child(odd) {
+            /* background: #f30; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner">
+        <ul>
+            <li>01</li>
+            <li>02</li>
+            <li>03</li>
+            <li>04</li>
+            <li>05</li>
+        </ul>
+    </div>
+    <button class="prev">
+        前一个</button>
+    <button class="next">后一个</button>
+
+    <script>
+        let dom = {
+            prev: document.querySelector(".prev"),
+            next: document.querySelector(".next"),
+            ul: document.querySelector(".banner>ul")
+        }
+        let i = 1
+
+        // 复制第一张到后面，复制最后一张到前面
+        let firstli = dom.ul.children[0].cloneNode(true)
+        let lastli = dom.ul.children[dom.ul.children.length - 1].cloneNode(true)
+        dom.ul.append(firstli)
+        dom.ul.prepend(lastli)
+        dom.ul.style.transform = `translateX(-100%)`
+
+        // 判断当次动画有没有结束
+        let isAnimating
+
+        // 上一张
+        dom.prev.onclick = function () {
+            if (isAnimating) return
+            i--
+            dom.ul.style.transition = ".2s"
+            dom.ul.style.transform = `translateX(-${i}00%)`
+            isAnimating = true
+        }
+
+        // 下一张
+        dom.next.onclick = function () {
+            if (isAnimating) return
+            i++
+            dom.ul.style.transition = ".2s"
+            dom.ul.style.transform = `translateX(-${i}00%)`
+            isAnimating = true
+        }
+
+        // 动画结束后
+        dom.ul.addEventListener("transitionend", function () {
+            isAnimating = false
+            if (i >= 6) i = 1
+            if (i <= 0) i = 5
+            dom.ul.style.transition = "none"
+            dom.ul.style.transform = `translateX(-${i}00%)`
+            console.log(i)
+        })
+
+
+    </script>
+</body>
+
+</html>

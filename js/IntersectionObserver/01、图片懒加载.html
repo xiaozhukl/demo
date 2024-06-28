@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 1000px;
+            margin: auto;
+            border: 1px solid #999;
+            padding: 10px;
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
+
+        .container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=1" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=2" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=3" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=4" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=5" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=6" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=7" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=8" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=9" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=10" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=11" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=12" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=13" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=14" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=15" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=16" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=17" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=18" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=19" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=20" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=21" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=22" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=23" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=24" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=25" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=26" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=27" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=28" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=29" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=30" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=31" alt="">
+        <img src="./default.png" data-src="http://picsum.photos/200/200?r=32" alt="">
+    </div>
+
+
+    <!-- 图片懒加载 -->
+    <script>
+        let io = new IntersectionObserver(items => {
+            for (const item of items) {
+                if (item.isIntersecting) {
+                    // 如果图片出现在视口中，把图片的data-src属性赋值给src属性
+                    item.target.src = item.target.getAttribute("data-src")
+                    // 赋值完成以后，取消对当前元素的监听
+                    io.unobserve(item.target)
+                }
+            }
+        }, {
+            root: null, // 交叉的元素，设置为null表示浏览器视口
+            rootMargin: "0px", // 向外扩展的区域
+            threshold: 0 // 交叉的范围
+        })
+
+        let imgs = document.querySelectorAll(".container img")
+        for (const img of imgs) {
+            io.observe(img)
+        }
+    </script>
+</body>
+
+</html>

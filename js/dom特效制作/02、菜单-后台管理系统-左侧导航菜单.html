@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4544968_yd89frbs1cn.css">
+
+    <style>
+        aside {
+            width: 250px;
+            height: 100vh;
+            background: var(--nav-bgcolor);
+        }
+
+        :root {
+            --nav-bgcolor: rgb(7, 113, 51);
+        }
+
+        aside a {
+            color: #fff;
+            position: relative;
+            /* a标签的样式 */
+            display: block;
+            line-height: 50px;
+            text-align: center;
+        }
+
+        /* 鼠标经过一级a标签的时候，变色 */
+        aside>.menu>ul>li>a:hover {
+            background: color-mix(in srgb, var(--nav-bgcolor), #000 20%);
+        }
+
+        /* 鼠标经过二级a标签的时候，也变色 */
+        aside>.menu>ul>li>ul a:hover {
+            background: color-mix(in srgb, var(--nav-bgcolor), #000 70%);
+        }
+
+        /* 二级菜单整体有个背景色 */
+        aside>.menu>ul>li>ul {
+            background: color-mix(in srgb, var(--nav-bgcolor), #000 40%);
+
+            /* 核心代码 */
+            height: 0;
+            overflow: hidden;
+            transition: 0.3s ease-in-out;
+        }
+
+        aside a.active {
+            background: color-mix(in srgb, var(--nav-bgcolor), #000 70%);
+        }
+
+        .iconfont {
+            position: absolute;
+            right: 40px;
+            transition: 0.3s;
+        }
+
+        /* aside>.menu>ul>li:not(:has(ul)) a {
+            border: 1px solid red;
+        } */
+    </style>
+</head>
+
+<body>
+    <aside>
+        <nav class="menu">
+            <ul>
+                <li><a href="#">菜单栏目 <i class="iconfont icon-iconfonti2-copy-copy-copy-copy"></i></a>
+                    <ul>
+                        <li><a href="#">子菜单栏目1</a></li>
+                        <li><a href="#">子菜单栏目1</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="#">菜单栏目 <i class="iconfont icon-iconfonti2-copy-copy-copy-copy"></i></a>
+                    <ul>
+                        <li><a href="#">子菜单栏目2</a></li>
+                        <li><a href="#">子菜单栏目2</a></li>
+                        <li><a href="#">子菜单栏目2</a></li>
+                        <li><a href="#">子菜单栏目2</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="#">菜单栏目 <i class="iconfont icon-iconfonti2-copy-copy-copy-copy"></i></a>
+                    <ul>
+                        <li><a href="#">子菜单栏目3</a></li>
+                        <li><a href="#">子菜单栏目3</a></li>
+                        <li><a href="#">子菜单栏目3</a></li>
+                        <li><a href="#">子菜单栏目3</a></li>
+                        <li><a href="#">子菜单栏目3</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="#">菜单栏目 <i class="iconfont icon-iconfonti2-copy-copy-copy-copy"></i></a>
+                    <ul>
+                        <li><a href="#">子菜单栏目4</a></li>
+                        <li><a href="#">子菜单栏目4</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="#">菜单栏目</a></li>
+
+                <li><a href="#">菜单栏目 <i class="iconfont icon-iconfonti2-copy-copy-copy-copy"></i></a>
+                    <ul>
+                        <li><a href="#">子菜单栏目</a></li>
+                        <li><a href="#">子菜单栏目</a></li>
+                        <li><a href="#">子菜单栏目</a></li>
+                        <li><a href="#">子菜单栏目</a></li>
+                        <li><a href="#">子菜单栏目</a></li>
+                        <li><a href="#">子菜单栏目</a></li>
+                        <li><a href="#">子菜单栏目</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <script>
+        // 1、给所有一级的a标签绑定点击事件
+        let links = document.querySelectorAll("aside .menu>ul>li>a")
+        for (const link of links) {
+            link.onclick = function () {
+                // 把所有ul的高度先设置为0
+                let uls = document.querySelectorAll("aside .menu>ul>li>ul")
+                uls.forEach(v => { v.style.height = 0; v.previousElementSibling.querySelector(".iconfont").style.transform = `rotate(0)` })
+
+                // 找到a标签的后一个元素
+                let ul = this.nextElementSibling
+                // 判断后一个元素是不是ul
+                if (ul && ul.tagName == "UL") {
+                    // 再来判断一下，当前ul是展开的还是折叠起来的
+                    if (parseInt(getComputedStyle(ul).height) == 0) {
+                        ul.style.height = ul.scrollHeight + "px"
+                        link.querySelector(".iconfont").style.transform = `rotate(180deg)`
+                    } else {
+                        ul.style.height = "0px"
+                        link.querySelector(".iconfont").style.transform = `rotate(0)`
+                    }
+                }
+            }
+        }
+
+
+        // 2、给所有二级的a标签【以及没有下拉菜单的一级a标签】设置点击事件
+        let secondlinks = document.querySelectorAll("aside>.menu>ul>li>ul a")
+        for (const link of secondlinks) {
+            // 点击哪个a标签的时候，给哪个a标签设置一个active类
+            link.onclick = function () {
+                let activelink = document.querySelector("aside a.active")
+                if (activelink) {
+                    activelink.classList.remove("active")
+                }
+                this.classList.add("active")
+            }
+        }
+    </script>
+</body>
+
+</html>

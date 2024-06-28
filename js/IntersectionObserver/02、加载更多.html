@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            margin: auto;
+            border: 1px solid #999;
+            padding: 10px;
+
+            display: grid;
+            grid-gap: 10px;
+
+        }
+
+        .container li {
+            line-height: 30px;
+            border: 1px solid #eee;
+            padding: 5px;
+            text-align: center;
+
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="container">
+        <li>sdjofjoewfojewofosjfowjeofjwoef</li>
+        <li>sdjofjoewfojewofosjfowjeofjwoef</li>
+        <li>sdjofjoewfojewofosjfowjeofjwoef</li>
+        <li>sdjofjoewfojewofosjfowjeofjwoef</li>
+        <li>sdjofjoewfojewofosjfowjeofjwoef</li>
+        <li>sdjofjoewfojewofosjfowjeofjwoef</li>
+        <li>sdjofjoewfojewofosjfowjeofjwoef</li>
+        <li>sdjofjoewfojewofosjfowjeofjwoef</li>
+    </ul>
+    <div class="loading" style="text-align:center">
+        <img src="./loading.gif" width="100px" alt="">
+    </div>
+
+
+    <!-- 图片懒加载 -->
+    <script>
+        let page = 1 // 加载第几页
+        let limit = 12 // 每页多少条
+
+        let io = new IntersectionObserver(items => {
+            let item = items[0]
+            if (item.isIntersecting) {
+                loadMore(page, limit);
+                page++
+            }
+        }, {
+            root: null,
+            threshold: 0.5
+        })
+
+        let imgloading = document.querySelector(".loading img")
+        let container = document.querySelector(".container")
+        io.observe(imgloading)
+
+
+        let loadMore = async (page, limit) => {
+            let res = await fetch(`http://picsum.photos/v2/list?page=${page}&limit=${limit}`)
+            let imgs = await res.json()
+            // 如果没有了，停止监听
+            if (imgs.length == 0) {
+                imgloading.remove()
+                io.disconnect()
+            }
+            // 把后端返回的数据拼接为HTML，放入容器中
+            let html = ``
+            for (const img of imgs) {
+                html += `
+                    <li>${JSON.stringify(img)}</li>
+                `
+            }
+            container.innerHTML += html
+        }
+    </script>
+</body>
+
+</html>

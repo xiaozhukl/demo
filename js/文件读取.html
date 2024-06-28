@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="file" name="tx" id="tx">
+    <img src="" alt="">
+    <script>
+        let tx = document.getElementById("tx")
+        tx.onchange = async function () {
+
+            let link = document.createElement("a")
+            let url = URL.createObjectURL(this.files[0])
+            link.href = url
+            link.innerText = '下载'
+            document.body.append(link)
+            // let fr = new FileReader()
+            // fr.readAsDataURL(this.files[0])
+            // fr.onload = function () {
+            //     // console.log(this.result)
+            //     // let img = document.querySelector("img")
+            //     // img.style.width = "300px"
+            //     // img.style.height = "300px"
+            //     // img.src = this.result
+
+
+
+            // }
+        }
+    </script>
+</body>
+
+</html>

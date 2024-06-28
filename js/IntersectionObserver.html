@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        ul {
+            border: 10px solid green;
+        }
+
+        ul li {
+            line-height: 30px;
+        }
+
+        ul li:has(+li) {
+            border-bottom: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="https://picsum.photos/200/300?r=1" alt="">
+    <ul>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+        <li>abcdefg</li>
+    </ul>
+    <!-- <button>加载更多</button> -->
+</body>
+
+<script>
+
+    // let callback = (entries) => {
+    //     entries.forEach(entry => {
+    //         if (entry.isIntersecting) {
+    //             console.log(entry);
+    //         }
+    //     })
+    // }
+    let count = 0
+    let io = new IntersectionObserver(items => {
+        for (const item of items) {
+            if (item.isIntersecting) {
+
+                console.log(item)
+
+                count++
+
+                let ul = document.querySelector("ul")
+                for (let i = 1; i <= 10; i++) {
+                    ul.innerHTML += `
+                        <li>${i}</li>
+                    `
+                }
+
+                if (count == 5) {
+                    io.disconnect();
+                    return false;
+                }
+
+                let lastli = document.querySelector("ul li:last-child")
+                io.observe(lastli)
+
+                // console.log(item)
+                // let ul = document.querySelector("ul")
+                // let li = document.createElement("li")
+                // li.innerHTML = Math.random().toString()
+                // ul.append(li)
+            }
+        }
+    },
+        {
+            threshold: 1,
+            rootMargin: "0px 0px 100px 0px"
+        }
+    )
+
+    let lastli = document.querySelector("ul li:last-child")
+    io.observe(lastli)
+
+    // let ul = document.querySelector("ul")
+    // io.observe(ul)
+
+    // let button = document.querySelector("ul+button")
+    // io.observe(button)
+
+    // let lis = document.querySelectorAll("ul li")
+    // for (const li of lis) {
+    //     abc.observe(li)
+    // }
+</script>
+
+</html>

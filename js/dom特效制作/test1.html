@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>悬浮图标拖动与锁屏示例</title>
+    <style>
+        #floatingIcon {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        #floatingIcon img {
+            width: 40px;
+            height: 40px;
+        }
+
+        #menu {
+            position: absolute;
+            bottom: 50px;
+            right: 10px;
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            padding: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1001;
+            display: none;
+            cursor: default;
+        }
+
+        #menu ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #menu li {
+            padding: 5px 0;
+            cursor: pointer;
+        }
+
+        #menu li:hover {
+            text-decoration: underline;
+        }
+
+        .screen-lock {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* background-image: url('lock-screen.jpg'); */
+            background: rgba(0, 0, 0, 0.5);
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1002;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="floatingIcon" draggable="true">
+        <img src="icon.png" alt="悬浮图标">
+        <div id="menu">
+            <ul>
+                <li onclick="lockScreen()">锁屏</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let isDragging = false;
+        let startX, startY, startClientX, startClientY;
+
+
+        document.getElementById('floatingIcon').onmousedown = function (e) {
+            isDragging = true;
+            startX = this.offsetLeft;
+            startY = this.offsetTop;
+            startClientX = e.clientX;
+            startClientY = e.clientY;
+        };
+
+        document.onmousemove = function (e) {
+            if (isDragging) {
+                let currentX = startX + (e.clientX - startClientX);
+                let currentY = startY + (e.clientY - startClientY);
+                document.getElementById('floatingIcon').style.left = currentX + 'px';
+                document.getElementById('floatingIcon').style.top = currentY + 'px';
+            }
+        };
+
+        document.onmouseup = function () {
+            isDragging = false;
+        };
+
+        document.getElementById('floatingIcon').onmouseup = function () {
+            let menu = document.getElementById('menu');
+            menu.style.display = (menu.style.display === 'none') ? 'block' : 'none';
+        };
+
+        function lockScreen() {
+            let screenLock = document.createElement('div');
+            screenLock.className = 'screen-lock';
+            document.body.appendChild(screenLock);
+
+            document.onkeydown = function (e) {
+                if (e.key === 'Escape') {
+                    document.body.removeChild(screenLock);
+                }
+            };
+        }
+    </script>
+</body>
+
+</html>

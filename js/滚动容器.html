@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        body {
+            padding: 20px;
+        }
+
+        ul {
+            display: flex;
+            gap: 20px;
+            scroll-snap-type: x mandatory;
+            overflow-x: auto;
+        }
+
+        ul li {
+            width: 50%;
+            line-height: 150px;
+            text-align: center;
+            color: #fff;
+            /* 关键 */
+            flex-shrink: 0;
+            scroll-snap-align: center;
+        }
+
+        ul li:nth-child(even) {
+            background: #f30;
+        }
+
+        ul li:nth-child(odd) {
+            background: #339;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        获取用户列表
+    </script>
+    <ul class="list">
+        <li>01</li>
+        <li>02</li>
+        <li>03</li>
+        <li>04</li>
+        <li>05</li>
+        <li>06</li>
+    </ul>
+</body>
+
+</html>

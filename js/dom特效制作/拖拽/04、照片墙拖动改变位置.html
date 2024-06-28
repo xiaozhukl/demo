@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        div {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- div>img*500[href="https://picsum.photos$$$"] -->
+    <div>
+        <img src="https://picsum.photos/200?001" alt=""><img src="https://picsum.photos/200?002" alt=""><img
+            src="https://picsum.photos/200?003" alt=""><img src="https://picsum.photos/200?004" alt=""><img
+            src="https://picsum.photos/200?005" alt=""><img src="https://picsum.photos/200?006" alt=""><img
+            src="https://picsum.photos/200?007" alt=""><img src="https://picsum.photos/200?008" alt=""><img
+            src="https://picsum.photos/200?009" alt=""><img src="https://picsum.photos/200?010" alt=""><img
+            src="https://picsum.photos/200?011" alt=""><img src="https://picsum.photos/200?012" alt=""><img
+            src="https://picsum.photos/200?013" alt=""><img src="https://picsum.photos/200?014" alt=""><img
+            src="https://picsum.photos/200?015" alt=""><img src="https://picsum.photos/200?016" alt=""><img
+            src="https://picsum.photos/200?017" alt=""><img src="https://picsum.photos/200?018" alt=""><img
+            src="https://picsum.photos/200?019" alt=""><img src="https://picsum.photos/200?020" alt=""><img
+            src="https://picsum.photos/200?021" alt=""><img src="https://picsum.photos/200?022" alt=""><img
+            src="https://picsum.photos/200?023" alt=""><img src="https://picsum.photos/200?024" alt=""><img
+            src="https://picsum.photos/200?025" alt=""><img src="https://picsum.photos/200?026" alt=""><img
+            src="https://picsum.photos/200?027" alt=""><img src="https://picsum.photos/200?028" alt=""><img
+            src="https://picsum.photos/200?029" alt=""><img src="https://picsum.photos/200?030" alt=""><img
+            src="https://picsum.photos/200?031" alt=""><img src="https://picsum.photos/200?032" alt=""><img
+            src="https://picsum.photos/200?033" alt=""><img src="https://picsum.photos/200?034" alt=""><img
+            src="https://picsum.photos/200?035" alt=""><img src="https://picsum.photos/200?036" alt=""><img
+            src="https://picsum.photos/200?037" alt=""><img src="https://picsum.photos/200?038" alt=""><img
+            src="https://picsum.photos/200?039" alt=""><img src="https://picsum.photos/200?040" alt=""><img
+            src="https://picsum.photos/200?041" alt=""><img src="https://picsum.photos/200?042" alt=""><img
+            src="https://picsum.photos/200?043" alt=""><img src="https://picsum.photos/200?044" alt=""><img
+            src="https://picsum.photos/200?045" alt=""><img src="https://picsum.photos/200?046" alt=""><img
+            src="https://picsum.photos/200?047" alt=""><img src="https://picsum.photos/200?048" alt=""><img
+            src="https://picsum.photos/200?049" alt=""><img src="https://picsum.photos/200?050" alt="">
+    </div>
+
+    <script>
+        let imgs = document.querySelectorAll("div img")
+        let source = null // 拿到拖动的元素
+        for (const img of imgs) {
+            img.draggable = true // 设置img可拖动
+            // 开始拖动
+            img.ondragstart = function () {
+                source = this
+            }
+            // 拖动进入
+            img.ondragenter = function () {
+                this.style.outline = "2px solid red"
+            }
+            // 拖动离开
+            img.ondragleave = function () {
+                this.style.outline = "none"
+            }
+
+            // 拖动经过
+            img.ondragover = function () {
+                event.preventDefault()
+            }
+            // 拖动放下
+            img.ondrop = function () {
+                this.style.outline = "none"
+                img.before(source)
+            }
+        }
+    </script>
+</body>
+
+</html>

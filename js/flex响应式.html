@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            border: 1px solid #000;
+            margin: auto;
+        }
+
+        .container div:nth-child(1) {
+            border: 1px solid red;
+            text-align: center;
+            line-height: 100px;
+            flex: 4;
+            flex-basis: 250px;
+        }
+
+        .container div:nth-child(2) {
+            border: 1px solid red;
+            text-align: center;
+            line-height: 100px;
+            flex: 6;
+            flex-basis: 250px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div>aaaa</div>
+        <div>bbbbb</div>
+    </div>
+</body>
+
+</html>

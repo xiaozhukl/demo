@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        body {
+            background: #f5f5f5;
+        }
+
+        .container {
+            width: 500px;
+            height: 300px;
+            background: #fff;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
+            margin: 50px auto;
+            position: relative;
+            /* overflow: hidden; */
+        }
+
+        .container .banner {
+            display: flex;
+            border: 1px solid red;
+            height: 100%;
+        }
+
+        .container .banner li {
+            /* 关键在这里 */
+            flex: 0 0 100%;
+            border: 1px solid #000;
+            height: 100%;
+        }
+
+        /* 左右箭头的样式 */
+        .container .next,
+        .container .prev {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 20px 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 12px;
+            font-family: "宋体";
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .container .next:hover,
+        .container .prev:hover {
+            background: #339;
+        }
+
+        .container .next {
+            right: 0;
+        }
+
+        .conatiner .prev {
+            left: 0;
+        }
+
+        /* 下方小点的样式 */
+        .container .dots {
+            position: absolute;
+            bottom: 10px;
+            display: flex;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .container .dots li {
+            width: 20px;
+            height: 5px;
+            background: #666;
+            margin: 0 8px;
+        }
+
+        .container .dots li.active {
+            background: #339;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <ul class="banner">
+            <li>11</li>
+            <li>22</li>
+            <li>33</li>
+            <li>44</li>
+            <li>55</li>
+        </ul>
+    </div>
+
+
+    <script>
+        let container = document.querySelector(".container")
+        let bannerlis = container.querySelectorAll(".banner li")
+
+        // 创建2个按钮
+        container.innerHTML += `<div class='next'>&gt;</div><div class='prev'>&lt;</div>`
+
+        // 创建小圆点（需要知道有几个幻灯片）
+        let ulstr = `<ul class='dots'>` + `<li></li>`.repeat(bannerlis.length) + `</ul>`
+        container.innerHTML += ulstr
+
+
+        let btnnext = container.querySelector(".next")
+        let btnprev = container.querySelector(".prev")
+        // 注意这句一定要放后面！！！！！
+        // let banner = container.querySelector(".banner")
+        let dotlis = container.querySelectorAll(".dots li")
+        // 给第一个dots中的li设置高亮
+        container.querySelector(".dots li:first-child").classList.add("active")
+        let banner = container.querySelector(".banner")
+
+
+        // -----start---无缝滚动需要把第一张复制到最后，把最后一张复制到开头-----------
+        let firstli = bannerlis[0].cloneNode(true)
+        let lastli = bannerlis[bannerlis.length - 1].cloneNode(true)
+        banner.append(firstli)
+        banner.prepend(lastli)
+        banner.style.transform = `translateX(-100%)`
+        // -----end---无缝滚动需要把第一张复制到最后，把最后一张复制到开头-------------
+
+        let isAnimating
+
+        // 这个变量用来定义当前是第几章幻灯片
+        let i = 1
+        // 控制现在幻灯片的下标
+        let k = 0
+        btnnext.onclick = function () {
+            if (isAnimating) return
+            k++
+            i++
+            if (k == 5) k = 0
+            banner.style.transition = '0.3s'
+            banner.style.transform = `translateX(-${i}00%)`
+            isAnimating = true
+
+            let dotactiveli = container.querySelector(".dots li.active")
+            dotactiveli.classList.remove("active")
+            dotlis[k].classList.add("active")
+        }
+
+        btnprev.onclick = function () {
+            if (isAnimating) return
+            k--
+            i--
+            if (k == -1) k = 4
+            banner.style.transition = '0.3s'
+            banner.style.transform = `translateX(-${i}00%)`
+            isAnimating = true
+
+            let dotactiveli = container.querySelector(".dots li.active")
+            dotactiveli.classList.remove("active")
+            dotlis[k].classList.add("active")
+        }
+
+
+        // 给dots中的li绑定点击事件
+        dotlis.forEach((v, index) => {
+            v.onclick = function () {
+                i = index + 1
+                banner.style.transition = '0.3s'
+                banner.style.transform = `translateX(-${i}00%)`
+                let dotactiveli = container.querySelector(".dots li.active")
+                dotactiveli.classList.remove("active")
+                v.classList.add("active")
+            }
+        })
+
+
+        // 自动播放
+        let timer
+        function autoplay() {
+            timer = setInterval(() => {
+                btnnext.click()
+            }, 3000)
+        }
+        autoplay()
+
+
+        // 鼠标经过container的时候，暂停播放，移开的时候继续播放
+        container.onmouseenter = function () {
+            clearInterval(timer)
+        }
+        container.onmouseleave = function () {
+            autoplay()
+        }
+
+        banner.ontransitionend = function () {
+            if (i >= 6) i = 1
+            if (i <= 0) i = 5
+            banner.style.transition = "none"
+            banner.style.transform = `translateX(-${i}00%)`
+            isAnimating = false
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: calc(Infinity*1px);
+            background: blue;
+            margin-bottom: 100px;
+            margin-left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="circle"></div>
+    <button>动画</button>
+
+    <script>
+        let circle = document.querySelector(".circle")
+        let button = document.querySelector("button")
+        button.onclick = function () {
+            circle.animate([
+                {
+                    marginLeft: 0
+                },
+                {
+                    marginLeft: "500px",
+                    transform: "scale(3)"
+                },
+                {
+                    marginLeft: 0
+                }
+            ], {
+                duration: 5000,
+                easing: 'ease-in-out',        // 平滑
+                // iterations: Infinity,
+            })
+        }
+    </script>
+</body>
+
+</html>

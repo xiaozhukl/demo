@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e5e5e5;
+        }
+
+        .dialog {
+            position: fixed;
+            width: 500px;
+            background: #fff;
+            padding: 25px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        .dialog h2 {
+            font-size: 14px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .dialog h2 .close {
+            font-size: 12px;
+            font-weight: normal;
+            padding: 1px 4px;
+            background: red;
+            color: #fff;
+        }
+
+        .dialog>div {
+            font-size: 12px;
+            line-height: 1.7;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <button>弹出窗口</button>
+    <div class="dialog">
+        <h2>窗口标题 <span class="close">X</span></h2>
+        <div class="content">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati sed nobis eius odio? Quibusdam dolore
+            doloremque, beatae illo expedita impedit. Voluptatum excepturi atque aliquam eos sed cum ea animi veniam,
+            fuga explicabo in corporis cumque officia blanditiis fugiat dolor magni impedit quaerat debitis soluta totam
+            accusantium inventore rem libero? Necessitatibus?
+        </div>
+    </div>
+
+
+    <script>
+        // 需求：
+        // 1、点击按钮，弹出窗口
+        // 2、点击空白位置，关闭窗口
+        // 3、点击X关闭窗口
+        // 4、按下esc，关闭窗口
+
+        let btn = document.querySelector("button")
+        let dialog = document.querySelector(".dialog")
+        // 点击按钮，弹窗
+        btn.onclick = function () {
+            // 阻止事件冒泡
+            event.stopPropagation()
+            dialog.style.display = 'block'
+        }
+
+        // 点击空白地方，关闭
+        document.onclick = function () {
+            dialog.style.display = 'none'
+        }
+
+        // 点击dialog，不能关闭
+        dialog.onclick = function () {
+            event.stopPropagation()
+        }
+
+        // 点击X，关闭
+        let close = document.querySelector(".close")
+        close.onclick = function () {
+            dialog.style.display = 'none'
+        }
+
+        // 按下esc，关闭窗口
+        document.onkeydown = function () {
+            if (event.keyCode == 27) {
+                close.click()
+            }
+        }
+    </script>
+</body>
+
+</html>

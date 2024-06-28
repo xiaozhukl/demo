@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            background: red;
+            width: 200px;
+            /* padding: 20px; */
+            display: none;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body style="--height:0">
+    <button>展开/收起</button>
+    <div class="box">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero delectus eligendi doloremque earum inventore!
+        Odit, nulla incidunt? Velit nisi rem repellendus, placeat excepturi veniam eligendi eius, ab dolorem ipsa
+        facere.
+    </div>
+    sdfjldsjfldsjfljsldjfl
+
+    <script>
+        let btn = document.querySelector("button");
+        btn.onclick = function () {
+            let box = document.querySelector(".box");
+            box.style.display = 'block'
+            box.style.height = 0
+            box.style.transition = "0.3s"
+            box.style.height = box.scrollHeight + 'px'
+        }
+    </script>
+    <script>
+
+    </script>
+</body>
+
+</html>

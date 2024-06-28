@@ -1,0 +1,19 @@
+$color: red;
+
+.box {
+    background: red;
+
+    &:hover {
+        p {
+            color: red;
+        }
+    }
+
+    p {
+        color: $color;
+
+        >a {
+            text-decoration: none;
+        }
+    }
+}
